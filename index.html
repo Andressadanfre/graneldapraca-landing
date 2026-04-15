@@ -419,5 +419,51 @@
     <span class="float-tooltip">Fazer pedido agora</span>
   </a>
 
+  <!-- Rastreamento de Cliques GA4 -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+      // Mapeamento de padrões de URL para nomes de eventos
+      var botoes = [
+        // WhatsApp Fundinho
+        { padrao: 'wa.me/5534997819292', evento: 'clique_whatsapp_fundinho', label: 'WhatsApp Fundinho' },
+        // WhatsApp UMC
+        { padrao: 'wa.me/5534979969191', evento: 'clique_whatsapp_umc', label: 'WhatsApp UMC' },
+        // Goomer
+        { padrao: 'graneldapraca.goomer.app', evento: 'clique_goomer', label: 'Goomer Cardápio' },
+      ];
+
+      // Seleciona todos os links da página
+      var links = document.querySelectorAll('a[href]');
+
+      links.forEach(function (link) {
+        var href = link.getAttribute('href') || '';
+
+        botoes.forEach(function (b) {
+          if (href.indexOf(b.padrao) !== -1) {
+
+            // Identifica a localização do botão na página
+            var localizacao = 'desconhecido';
+            if (link.closest('header'))           localizacao = 'header';
+            else if (link.closest('.hero'))        localizacao = 'hero';
+            else if (link.closest('.cta-section')) localizacao = 'cta_final';
+            else if (link.closest('.units-section')) localizacao = 'unidades';
+            else if (link.closest('.how-section')) localizacao = 'como_funciona';
+            else if (link.classList.contains('float-wpp')) localizacao = 'botao_flutuante';
+            else if (link.closest('footer'))       localizacao = 'footer';
+
+            link.addEventListener('click', function () {
+              gtag('event', b.evento, {
+                event_category: 'conversao',
+                event_label: b.label + ' (' + localizacao + ')',
+                localizacao: localizacao
+              });
+            });
+          }
+        });
+      });
+    });
+  </script>
+
 </body>
 </html>
