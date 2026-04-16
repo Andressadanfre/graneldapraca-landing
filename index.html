@@ -249,7 +249,237 @@
       .cta-final-btns { flex-direction: column; align-items: center; }
       .btn-cta-final { width: 100%; max-width: 340px; justify-content: center; }
     }
-  </style>
+  
+
+  /* ─── Formulário de Leads ─── */
+existente ou em <style> separado) ── -->
+<style>
+  /* ─── Seção de leads ─── */
+  .leads-section {
+    background: #1E3A2F;
+    padding: 80px 7vw;
+    position: relative;
+    overflow: hidden;
+  }
+  .leads-section::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 360px; height: 360px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,255,255,.04) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .leads-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ─── Lado esquerdo: texto ─── */
+  .leads-copy .section-eyebrow { color: #E5A855; }
+  .leads-copy .section-eyebrow::after { background: #E5A855; }
+
+  .leads-copy h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(32px, 3.5vw, 48px);
+    font-weight: 300;
+    color: #F9F5EF;
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+  .leads-copy h2 em {
+    font-style: italic;
+    color: #E5A855;
+  }
+
+  .leads-copy p {
+    font-size: 15px;
+    font-weight: 300;
+    color: rgba(249,245,239,.7);
+    line-height: 1.7;
+    margin-bottom: 28px;
+    max-width: 400px;
+  }
+
+  .leads-beneficios {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .leads-beneficios li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    font-weight: 400;
+    color: rgba(249,245,239,.7);
+  }
+  .leads-beneficios li::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #E5A855;
+    flex-shrink: 0;
+  }
+
+  /* ─── Lado direito: formulário ─── */
+  .leads-form-box {
+    background: #fff;
+    border: 1px solid rgba(249,245,239,.12);
+    border-radius: 8px;
+    padding: 40px 36px;
+  }
+
+  .leads-form-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: #1E3A2F;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #EFE8DC;
+  }
+
+  .leads-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .leads-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .leads-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #5A5A5A;
+  }
+
+  .leads-input,
+  .leads-select {
+    width: 100%;
+    padding: 12px 16px;
+    background: #F9F5EF;
+    border: 1.5px solid #EFE8DC;
+    border-radius: 4px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: #2A2A2A;
+    outline: none;
+    transition: border-color .2s, box-shadow .2s;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+  .leads-input::placeholder { color: #A89A8E; }
+  .leads-input:focus,
+  .leads-select:focus {
+    border-color: #4A7C5F;
+    box-shadow: 0 0 0 3px rgba(30,58,47,.08);
+    background: #fff;
+  }
+
+  /* Select customizado */
+  .leads-select-wrap { position: relative; }
+  .leads-select-wrap::after {
+    content: '';
+    position: absolute;
+    right: 14px; top: 50%;
+    transform: translateY(-50%);
+    width: 10px; height: 6px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%231E3A2F' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-size: contain;
+    pointer-events: none;
+  }
+  .leads-select { padding-right: 36px; cursor: pointer; }
+
+  /* ─── Botão âmbar ─── */
+  .leads-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 24px;
+    background: #C8893A;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: background .2s, transform .2s, box-shadow .2s;
+    margin-top: 4px;
+  }
+  .leads-btn:hover {
+    background: #b87830;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(200,137,58,.35);
+  }
+  .leads-btn:active { transform: translateY(0); }
+  .leads-btn:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  /* ─── Feedback ─── */
+  .leads-feedback {
+    display: none;
+    padding: 14px 18px;
+    border-radius: 4px;
+    font-size: 13px;
+    line-height: 1.5;
+    margin-top: 4px;
+  }
+  .leads-feedback.success {
+    display: block;
+    background: rgba(30,58,47,.07);
+    border: 1px solid rgba(30,58,47,.18);
+    color: #1E3A2F;
+  }
+  .leads-feedback.error {
+    display: block;
+    background: rgba(180,60,60,.07);
+    border: 1px solid rgba(180,60,60,.2);
+    color: #8B2020;
+  }
+
+  /* ─── Nota de privacidade ─── */
+  .leads-privacy {
+    font-size: 11px;
+    color: #A89A8E;
+    text-align: center;
+    margin-top: 6px;
+    line-height: 1.5;
+  }
+
+  /* ─── Responsivo ─── */
+  @media (max-width: 900px) {
+    .leads-section { padding: 60px 20px; }
+    .leads-inner {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+    .leads-copy p { max-width: 100%; }
+    .leads-form-box { padding: 28px 20px; }
+  }
+
+</style>
 </head>
 <body>
 
@@ -474,7 +704,121 @@
     <div class="footer-bottom">© 2026 Granel da Praça · Uberlândia, MG · Todos os direitos reservados</div>
   </footer>
 
-  <!-- FLOAT WHATSAPP -->
+
+  <section class="leads-section" id="receba-novidades">
+  <div class="leads-inner">
+
+    <!-- Coluna esquerda: copy -->
+    <div class="leads-copy">
+      <div class="section-eyebrow">Fique por dentro</div>
+      <h2>Novidades &<br/><em>promoções exclusivas</em></h2>
+      <p>
+        Cadastre-se e receba em primeira mão as ofertas da semana,
+        lançamentos e dicas de alimentação saudável diretamente
+        no seu WhatsApp.
+      </p>
+      <ul class="leads-beneficios">
+        <li>Promoções exclusivas para cadastrados</li>
+        <li>Lançamentos e produtos sazonais</li>
+        <li>Dicas de uso e receitas naturais</li>
+        <li>Sem spam — só o que importa</li>
+      </ul>
+    </div>
+
+    <!-- Coluna direita: formulário -->
+    <div class="leads-form-box">
+      <div class="leads-form-title">Quero receber novidades 🌿</div>
+
+      <form class="leads-form" id="leadsForm" novalidate>
+
+        <div class="leads-field">
+          <label class="leads-label" for="lead-nome">Seu nome</label>
+          <input
+            class="leads-input"
+            type="text"
+            id="lead-nome"
+            name="nome"
+            placeholder="Como podemos te chamar?"
+            autocomplete="given-name"
+            required
+          />
+        </div>
+
+        <div class="leads-field">
+          <label class="leads-label" for="lead-whatsapp">WhatsApp</label>
+          <input
+            class="leads-input"
+            type="tel"
+            id="lead-whatsapp"
+            name="whatsapp"
+            placeholder="(34) 9 9999-9999"
+            autocomplete="tel"
+            inputmode="numeric"
+            required
+          />
+        </div>
+
+        <div class="leads-field">
+          <label class="leads-label" for="lead-bairro">Bairro em Uberlândia</label>
+          <div class="leads-select-wrap">
+            <select class="leads-select" id="lead-bairro" name="bairro" required>
+              <option value="">Selecione seu bairro</option>
+              <optgroup label="Região Central">
+                <option>Centro</option>
+                <option>Fundinho</option>
+                <option>Osvaldo Rezende</option>
+                <option>Tabajaras</option>
+                <option>Bom Jesus</option>
+              </optgroup>
+              <optgroup label="Região Sul">
+                <option>Jardim Karaíba</option>
+                <option>Saraiva</option>
+                <option>Santa Mônica</option>
+                <option>Jardim Patrícia</option>
+                <option>Custódio Pereira</option>
+                <option>Tibery</option>
+              </optgroup>
+              <optgroup label="Região Norte">
+                <option>Planalto</option>
+                <option>Luizote de Freitas</option>
+                <option>Jardim das Palmeiras</option>
+                <option>Dom Almir</option>
+              </optgroup>
+              <optgroup label="Região Leste">
+                <option>Roosevelt</option>
+                <option>Cazeca</option>
+                <option>Marta Helena</option>
+                <option>Jardim Europa</option>
+              </optgroup>
+              <optgroup label="Região Oeste">
+                <option>UMC / Umuarama</option>
+                <option>Shopping Park</option>
+                <option>Jardim Holanda</option>
+                <option>Segismundo Pereira</option>
+              </optgroup>
+              <option value="Outro">Outro bairro</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="submit" class="leads-btn" id="leadsBtnSubmit">
+          Quero receber novidades
+        </button>
+
+        <div class="leads-feedback" id="leadsFeedback"></div>
+
+        <p class="leads-privacy">
+          Seus dados são usados apenas para enviar novidades da Granel da Praça.
+          Nada de spam.
+        </p>
+
+      </form>
+    </div><!-- /.leads-form-box -->
+
+  </div><!-- /.leads-inner -->
+</section>
+
+    <!-- FLOAT WHATSAPP -->
   <a href="https://wa.me/5534997819292?text=Ol%C3%A1%21+Quero+fazer+um+pedido+no+Granel+da+Pra%C3%A7a+%F0%9F%8C%BF" target="_blank" class="float-wpp" aria-label="WhatsApp">
     <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
     <span class="float-tooltip">Fazer pedido agora</span>
@@ -525,6 +869,89 @@
       });
     });
   </script>
+
+
+  <script>
+(function () {
+  var WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbyDJv_ehpyEmZCE9rwVUkNMbyvc8aCH0J5TllDG1wY_j3c1ZR4cH3iwdIKNwnEdXl34/exec';
+
+  var form     = document.getElementById('leadsForm');
+  var btn      = document.getElementById('leadsBtnSubmit');
+  var feedback = document.getElementById('leadsFeedback');
+
+  /* Formata telefone enquanto digita: (XX) X XXXX-XXXX */
+  var telInput = document.getElementById('lead-whatsapp');
+  telInput.addEventListener('input', function () {
+    var v = this.value.replace(/\D/g, '').slice(0, 11);
+    if (v.length <= 2)        this.value = v.length ? '(' + v : '';
+    else if (v.length <= 7)   this.value = '(' + v.slice(0,2) + ') ' + v.slice(2);
+    else if (v.length <= 11)  this.value = '(' + v.slice(0,2) + ') ' + v.slice(2,3) + ' ' + v.slice(3,7) + (v.length > 7 ? '-' + v.slice(7) : '');
+  });
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    /* Validação simples */
+    var nome    = document.getElementById('lead-nome').value.trim();
+    var wpp     = document.getElementById('lead-whatsapp').value.trim();
+    var bairro  = document.getElementById('lead-bairro').value;
+
+    if (!nome || !wpp || !bairro) {
+      showFeedback('error', '⚠️ Preencha todos os campos antes de continuar.');
+      return;
+    }
+    if (wpp.replace(/\D/g, '').length < 10) {
+      showFeedback('error', '⚠️ Informe um WhatsApp válido com DDD.');
+      return;
+    }
+
+    /* Envio */
+    btn.disabled    = true;
+    btn.textContent = 'Enviando…';
+    hideFeedback();
+
+    var payload = { nome: nome, whatsapp: wpp, origem: 'Site — ' + bairro };
+
+    fetch(WEBHOOK_URL, {
+      method: 'POST',
+      mode: 'no-cors',           /* Apps Script não devolve CORS — usamos no-cors */
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+    .then(function () {
+      /* no-cors → response.type = 'opaque', não sabemos se deu erro no script,
+         mas o registro chegou se o webhook estiver correto */
+      showFeedback('success', '✅ Cadastro recebido! Em breve você receberá novidades no WhatsApp. 🌿');
+      form.reset();
+      /* GA4: dispara evento de conversão */
+      if (typeof gtag === 'function') {
+        gtag('event', 'lead_cadastrado', {
+          event_category: 'leads',
+          event_label: 'formulario_site'
+        });
+      }
+    })
+    .catch(function (err) {
+      showFeedback('error', '❌ Ocorreu um erro. Tente novamente ou nos chame no WhatsApp.');
+      console.error('Erro ao enviar lead:', err);
+    })
+    .finally(function () {
+      btn.disabled    = false;
+      btn.textContent = 'Quero receber novidades';
+    });
+  });
+
+  function showFeedback(type, msg) {
+    feedback.className  = 'leads-feedback ' + type;
+    feedback.textContent = msg;
+    feedback.style.display = 'block';
+  }
+  function hideFeedback() {
+    feedback.style.display = 'none';
+    feedback.className = 'leads-feedback';
+  }
+})();
+</script>
 
 </body>
 </html>
