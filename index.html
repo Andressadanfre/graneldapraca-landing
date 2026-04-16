@@ -698,7 +698,7 @@
 
     <!-- Coluna direita: formulário -->
     <div class="leads-form-box">
-      <div class="leads-form-title">Quero receber novidades 🌿</div>
+      <div class="leads-form-title">Quero receber novidades </div>
 
       <form class="leads-form" id="leadsForm" novalidate>
 
@@ -872,82 +872,52 @@
   <script>
 (function () {
   var WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbyDJv_ehpyEmZCE9rwVUkNMbyvc8aCH0J5TllDG1wY_j3c1ZR4cH3iwdIKNwnEdXl34/exec';
-
-  var form     = document.getElementById('leadsForm');
-  var btn      = document.getElementById('leadsBtnSubmit');
+  var form = document.getElementById('leadsForm');
+  var btn = document.getElementById('leadsBtnSubmit');
   var feedback = document.getElementById('leadsFeedback');
 
-  /* Formata telefone enquanto digita: (XX) X XXXX-XXXX */
-  var telInput = document.getElementById('lead-whatsapp');
-  telInput.addEventListener('input', function () {
+  document.getElementById('lead-whatsapp').addEventListener('input', function () {
     var v = this.value.replace(/\D/g, '').slice(0, 11);
-    if (v.length <= 2)        this.value = v.length ? '(' + v : '';
-    else if (v.length <= 7)   this.value = '(' + v.slice(0,2) + ') ' + v.slice(2);
-    else if (v.length <= 11)  this.value = '(' + v.slice(0,2) + ') ' + v.slice(2,3) + ' ' + v.slice(3,7) + (v.length > 7 ? '-' + v.slice(7) : '');
+    if (v.length <= 2) this.value = v.length ? '(' + v : '';
+    else if (v.length <= 7) this.value = '(' + v.slice(0,2) + ') ' + v.slice(2);
+    else this.value = '(' + v.slice(0,2) + ') ' + v.slice(2,3) + ' ' + v.slice(3,7) + (v.length > 7 ? '-' + v.slice(7) : '');
   });
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
+    var nome = document.getElementById('lead-nome').value.trim();
+    var wpp = document.getElementById('lead-whatsapp').value.trim();
+    var bairro = document.getElementById('lead-bairro').value;
 
-    /* Validação simples */
-    var nome    = document.getElementById('lead-nome').value.trim();
-    var wpp     = document.getElementById('lead-whatsapp').value.trim();
-    var bairro  = document.getElementById('lead-bairro').value;
+    if (!nome || !wpp || !bairro) { showFeedback('error', 'Preencha todos os campos antes de continuar.'); return; }
+    if (wpp.replace(/\D/g, '').length < 10) { showFeedback('error', 'Informe um WhatsApp valido com DDD.'); return; }
 
-    if (!nome || !wpp || !bairro) {
-      showFeedback('error', '⚠️ Preencha todos os campos antes de continuar.');
-      return;
-    }
-    if (wpp.replace(/\D/g, '').length < 10) {
-      showFeedback('error', '⚠️ Informe um WhatsApp válido com DDD.');
-      return;
-    }
-
-    /* Envio */
-    btn.disabled    = true;
-    btn.textContent = 'Enviando…';
+    btn.disabled = true;
+    btn.textContent = 'Enviando...';
     hideFeedback();
-
-    var payload = { nome: nome, whatsapp: wpp, origem: 'Site — ' + bairro };
 
     fetch(WEBHOOK_URL, {
       method: 'POST',
-      mode: 'no-cors',           /* Apps Script não devolve CORS — usamos no-cors */
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({ nome: nome, whatsapp: wpp, origem: 'Site - ' + bairro })
     })
     .then(function () {
-      /* no-cors → response.type = 'opaque', não sabemos se deu erro no script,
-         mas o registro chegou se o webhook estiver correto */
-      showFeedback('success', '✅ Cadastro recebido! Em breve você receberá novidades no WhatsApp. 🌿');
+      showFeedback('success', 'Cadastro recebido! Em breve voce recebera novidades no WhatsApp.');
       form.reset();
-      /* GA4: dispara evento de conversão */
-      if (typeof gtag === 'function') {
-        gtag('event', 'lead_cadastrado', {
-          event_category: 'leads',
-          event_label: 'formulario_site'
-        });
-      }
+      if (typeof gtag === 'function') gtag('event', 'lead_cadastrado', { event_category: 'leads', event_label: 'formulario_site' });
     })
     .catch(function (err) {
-      showFeedback('error', '❌ Ocorreu um erro. Tente novamente ou nos chame no WhatsApp.');
-      console.error('Erro ao enviar lead:', err);
+      showFeedback('error', 'Ocorreu um erro. Tente novamente ou nos chame no WhatsApp.');
     })
     .finally(function () {
-      btn.disabled    = false;
+      btn.disabled = false;
       btn.textContent = 'Quero receber novidades';
     });
   });
 
-  function showFeedback(type, msg) {
-    feedback.className  = 'leads-feedback ' + type;
-    feedback.textContent = msg;
-    feedback.style.display = 'block';
-  }
-  function hideFeedback() {
-    feedback.style.display = 'none';
-    feedback.className = 'leads-feedback';
-  }
+  function showFeedback(type, msg) { feedback.className = 'leads-feedback ' + type; feedback.textContent = msg; feedback.style.display = 'block'; }
+  function hideFeedback() { feedback.style.display = 'none'; feedback.className = 'leads-feedback'; }
 })();
 </script>
 
